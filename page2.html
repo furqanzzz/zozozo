@@ -512,22 +512,50 @@
         <img src="istockphoto-1447349632-612x612.jpg" alt="emoji la"> 
     </div>
 
+
+    
     
   <!-- Button to play audio manually -->
   <button id="playButton">Play Audio</button>
 
+  <audio id="audioPlayer" src="secret.mp3" autoplay preload="auto"></audio>
+
   <!-- YouTube iframe player -->
   <div id="player"></div>
 
-  <!-- Load YouTube API -->
-  <script src="https://www.youtube.com/iframe_api"></script>
+  <!-- Audio element (muted initially to allow autoplay) -->
+<audio id="audioPlayer" src="secret.mp3" preload="auto" muted></audio>
+
+
 
   <script>
-    var player;
+    var audioPlayer = document.getElementById('audioPlayer');
     var fadeInterval;
     var fadeDuration = 2000; // Duration of the fade in/out (in milliseconds)
-    var currentVolume = 1; // Starting volume (50%)
+    var currentVolume = 50; // Starting volume (50%)
     var fadeInProgress = false; // Flag to check if fade is already in progress
+
+      // Set the volume to 30%
+  audioPlayer.volume = 0.1;
+
+    // Make the audio autoplay when the page loads
+  audioPlayer.play();  // Automatically play the audio
+
+    // When the play button is clicked, play the audio
+    document.getElementById('playButton').addEventListener('click', function() {
+    audioPlayer.play().then(function() {
+      console.log("Audio is playing!");
+      document.getElementById('playButton').style.display = 'none';  // Hide the button after play
+    }).catch(function(e) {
+      console.log("Audio playback failed:", e);
+    });
+  });
+
+  
+
+
+   
+
 
     
     // Create the YouTube player once the API is ready
@@ -535,14 +563,14 @@
       player = new YT.Player('player', {
         height: '0',  // Hidden (we're only playing audio)
         width: '0',   // Hidden
-        videoId: 'nqJlNCs4qbI', // Video ID for the specific YouTube video
+        videoId: '', // Video ID for the specific YouTube video
         playerVars: {
           autoplay: 1, // Autoplay the video
           controls: 0, // No controls
           rel: 0, // Disable related videos
           showinfo: 0, // Hide video info
           loop: 1,  // Loop the video indefinitely
-          playlist: 'nqJlNCs4qbI' // Required for looping the same video
+          playlist: '' // Required for looping the same video
         },
         events: {
           onReady: onPlayerReady
@@ -568,6 +596,14 @@
       }, 50);
     }
 
+    
+
+    // Attempt autoplay on page load (muted)
+  audioPlayer.play().catch(function(e) {
+    console.log('Autoplay failed: ' + e); // Catch autoplay failure
+  });
+
+
 
     // Adjust volume and make sure video is ready
     function onPlayerReady(event) {
@@ -585,11 +621,7 @@
       }
     }
 
-    // Make sure button is visible and works
-    document.getElementById('playButton').addEventListener('click', function() {
-      player.playVideo();  // Manually trigger play on button click
-    });
-
+ 
     document.getElementById('playButton').addEventListener('click', function() {
   player.playVideo();  // Manually trigger play on button click
   document.getElementById('playButton').style.display = 'none';  // Hide the button after play
