@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Button to play audio manually -->
+  <button id="playButton">Play Audio</button>
+
+  <!-- YouTube iframe player -->
+  <div id="player"></div>
+
+  <!-- Load YouTube API -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+
+  <script>
+    var player;
+    var fadeInterval;
+    var fadeDuration = 2000; // Duration of the fade in/out (in milliseconds)
+    var currentVolume = 1; // Starting volume (50%)
+    var fadeInProgress = false; // Flag to check if fade is already in progress
+
+    
+    // Create the YouTube player once the API is ready
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        height: '0',  // Hidden (we're only playing audio)
+        width: '0',   // Hidden
+        videoId: 'pr42azVZi3o', // Video ID for the specific YouTube video
+        playerVars: {
+          autoplay: 1, // Autoplay the video
+          controls: 0, // No controls
+          rel: 0, // Disable related videos
+          showinfo: 0, // Hide video info
+          loop: 1,  // Loop the video indefinitely
+          playlist: 'pr42azVZi3o' // Required for looping the same video
+        },
+        events: {
+          onReady: onPlayerReady
+        }
+      });
+    }
+     // Smoothly fade the volume
+     function fadeVolume(targetVolume, duration) {
+      let startVolume = currentVolume;
+      let volumeDifference = targetVolume - startVolume;
+      let step = volumeDifference / (duration / 50);  // Calculate how much to change every 50ms
+
+      clearInterval(fadeInterval); // Clear any ongoing fade effect
+
+      fadeInterval = setInterval(function() {
+        currentVolume += step;
+        player.setVolume(currentVolume);
+
+        // Stop the interval when target volume is reached
+        if ((step > 0 && currentVolume >= targetVolume) || (step < 0 && currentVolume <= targetVolume)) {
+          clearInterval(fadeInterval);
+        }
+      }, 50);
+    }
+
+
+    // Adjust volume and make sure video is ready
+    function onPlayerReady(event) {
+      event.target.setVolume(20);  // Set volume to 50%
+    }
+    // On video state change (e.g., when the video is looping)
+    function onPlayerStateChange(event) {
+      if (event.data === YT.PlayerState.ENDED) {
+        fadeVolume(0, fadeDuration); // Fade out when the video ends
+        setTimeout(function() {
+          player.seekTo(0);  // Restart the video from the beginning
+          player.playVideo(); // Play the video again
+          fadeVolume(50, fadeDuration); // Fade in after restart
+        }, fadeDuration);
+      }
+    }
+
+    // Make sure button is visible and works
+    document.getElementById('playButton').addEventListener('click', function() {
+      player.playVideo();  // Manually trigger play on button click
+    });
+
+    document.getElementById('playButton').addEventListener('click', function() {
+  player.playVideo();  // Manually trigger play on button click
+  document.getElementById('playButton').style.display = 'none';  // Hide the button after play
+});
+
+  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Time</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #ffebee;
+            color: #000000;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(90deg, #57004a, #560051, #550058, #510060, #4d0068, #460071, #3d007a, #460071, #4d0068, #510060, #550058, #560051, #57004a);
+            background-size: 1400% 100%; /* Slightly larger size for smooth transition */
+            animation: rainbowAnimation 10s infinite linear;
+        }
+
+        /* Animation for background gradient */
+        @keyframes rainbowAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            8% {
+                background-position: 8% 50%;
+            }
+            16% {
+                background-position: 16% 50%;
+            }
+            24% {
+                background-position: 24% 50%;
+            }
+            32% {
+                background-position: 32% 50%;
+            }
+            40% {
+                background-position: 40% 50%;
+            }
+            48% {
+                background-position: 48% 50%;
+            }
+            56% {
+                background-position: 56% 50%;
+            }
+            64% {
+                background-position: 64% 50%;
+            }
+            72% {
+                background-position: 72% 50%;
+            }
+            80% {
+                background-position: 80% 50%;
+            }
+            88% {
+                background-position: 88% 50%;
+            }
+            96% {
+                background-position: 96% 50%;
+            }
+            100% {
+                background-position: 104% 50%; /* Extend slightly past 100% for a smooth loop */
+            }
+        }
+
+        .container {
+            margin-top: 100px;
+            animation: slideUp 2s ease-out, bounce 1.5s ease-out 2s forwards;
+        }
+
+        h1 {
+            font-size: 3rem;
+            opacity: 0;
+            animation: popIn 1.5s ease-out forwards;
+            text-shadow: 
+                0 0 5px #ff00ff, 
+                0 0 10px #ff00ff, 
+                0 0 15px #ff00ff, 
+                0 0 20px #ff0080, 
+                0 0 30px #ff0080, 
+                0 0 40px #ff0080, 
+                0 0 50px #ff0080; /* Neon light effect */
+        }
+
+        .btn-container {
+            margin-top: 20px;
+            opacity: 1;
+            animation: popInButtons 3s ease-out, bounce 1s ease-out 3s forwards;
+        }
+
+        .btn {
+            background-color: #000000;
+            color: white;
+            padding: 10px 20px;
+            font-size: 4rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+            display: inline-block;
+            text-shadow: 
+                0 0 5px #b0b0b049,   
+                0 0 10px #b0b0b04f,  
+                0 0 15px #b0b0b056,  
+                0 0 20px #99999956,  
+                0 0 30px #99999954,  
+                0 0 40px #9999994d,  
+                0 0 50px #9999995e;  
+            box-shadow: 
+                0 0 5px #000000,    
+                0 0 10px #000000,   
+                0 0 15px #000000,   
+                0 0 20px #333333,   
+                0 0 30px #333333,   
+                0 0 40px #33333313,  
+                0 0 50px #33333352;  
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for scaling and shadow */
+        }
+
+        .btn:hover {
+            transform: scale(1.2); /* Make the button grow 20% larger */
+            box-shadow: 
+                0 0 10px #000000,    
+                0 0 20px #000000,    
+                0 0 30px #000000,    
+                0 0 40px #333333,    
+                0 0 50px #333333,    
+                0 0 60px #333333;    
+        }
+        
+        /* Keyframe for the pop-in animation of text */
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: translateY(200px); /* Start from much lower */
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Keyframe for the pop-in animation of buttons */
+        @keyframes popInButtons {
+            0% {
+                opacity: 0;
+                transform: translateY(500px); /* Start from much lower */
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Keyframe for the slide-up animation */
+        @keyframes slideUp {
+            0% {
+                transform: translateY(500px); /* Start from much lower */
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        /* Keyframe for the bounce effect */
+        @keyframes bounce {
+            0% {
+                transform: translateY(0);
+            }
+            20% {
+                transform: translateY(-10px);
+            }
+            40% {
+                transform: translateY(5px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+            80% {
+                transform: translateY(2px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        
+
+        /* Image styling */
+        .image-container {
+            margin-top: 30px; /* Space between buttons and the image */
+        }
+        .image-container img {
+            width: 50%; /* Make the image take up the full width of its container */
+            max-width: 300px; /* Limit the size */
+            height: auto; /* Maintain the aspect ratio */
+            border-radius: 10px; /* Rounded corners for the image */
+            animation: rotate 5s linear infinite; /*makes da thang rotate*/
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg); /* Start at 0 degrees */
+            }
+            100% {
+                transform: rotate(360deg); /* Rotate to 360 degrees */
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>HEYY I HAVE A QUESTION!</h1>
+        <div class="btn-container">
+            <button class="btn" id="btn1">whats up?</button>
+            <button class="btn" id="btn2">shut up loser!</button>
+        </div>
+    </div>
+
+
+    <div class="image-container">
+        <img src="lol.png" alt="emoji la"> 
+    </div>
+
+    <script>
+              // Function to handle button clicks
+        function handleButtonClick(event) {
+            const button = event.target;
+            const h1 = document.querySelector('h1');
+            const btnContainer = document.querySelector('.btn-container');
+            const imageContainer = document.querySelector('.image-container');
+
+            // Hide the image and clear existing buttons
+            imageContainer.style.display = 'none';
+            btnContainer.innerHTML = '';
+
+            if (button.textContent === 'uhh yeah i guess?') {
+        h1.textContent = 'OKAY WELL.. uhhh';
+        createButtons(btnContainer, 'speak the fuck up', 'yes babe?');
+        imageContainer.innerHTML = '<img src="lol2.jpg" alt="First Question Image">';
+        imageContainer.style.display = 'block';
+    } else if (button.textContent === 'no idiot') {
+        h1.textContent = 'i know you love :3.. well';
+        createButtons(btnContainer, 'spit it out', 'go on!?');
+        imageContainer.innerHTML = '<img src="lol2.jpg" alt="First Question Image">';
+        imageContainer.style.display = 'block';
+    } else if (button.id === 'btn1') {
+        h1.textContent = 'i was wondering... you like me yeah?';
+        createButtons(btnContainer, 'uhh yeah i guess?', 'no idiot');
+    } else if (button.id === 'btn2') {
+        h1.textContent = 'haha yeah you love me.. anyways,, you like me right!?';
+        createButtons(btnContainer, 'alittle yes why?', 'nope!');
+    } else if (button.textContent === 'alittle yes why?') {
+        h1.textContent = 'i have a question';
+        createButtons(btnContainer, 'what is it', 'i dont even wanna know tbh');
+        imageContainer.innerHTML = '<img src="lol2.jpg" alt="First Question Image">';
+    imageContainer.style.display = 'block';
+    } else if (button.textContent === 'nope!') {
+        h1.textContent = 'blah blah but i have a question';
+        imageContainer.innerHTML = '<img src="lol2.jpg" alt="First Question Image">';
+    imageContainer.style.display = 'block';
+        createButtons(btnContainer, 'what is it?', 'i said i hate u!');
+        
+        // Check if the last buttons are clicked to redirect to page2.html
+    } else if (button.textContent === 'what is it?' || button.textContent === 'i said i hate u!' || button.textContent === 'what is it' || button.textContent === 'i dont even wanna know tbh' || button.textContent === 'speak the fuck up' || button.textContent === 'yes babe?' || button.textContent === 'go on!?' || button.textContent === 'spit it out') {
+        window.location.href = 'page2.html'; // Redirect to page2.html
+        
+        
+    }
+    
+} 
+
+
+
+
+        // Function to create new buttons
+        function createButtons(container, text1, text2) {
+            const newButton1 = document.createElement('button');
+            newButton1.className = 'btn';
+            newButton1.textContent = text1;
+
+            const newButton2 = document.createElement('button');
+            newButton2.className = 'btn';
+            newButton2.textContent = text2;
+
+            // Append new buttons to the container
+            container.appendChild(newButton1);
+            container.appendChild(newButton2);
+
+            // Add event listeners to the new buttons
+            newButton1.addEventListener('click', handleButtonClick);
+            newButton2.addEventListener('click', handleButtonClick);
+        }
+
+        // Add event listeners to the initial buttons
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('click', handleButtonClick);
+            
+        });
+        
+        
+
+        
+                
+    </script>
+</body>
+</html>
+

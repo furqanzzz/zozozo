@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Time</title>
+    <style>
+
+        
+        body {
+            font-family:  monospace, tahoma;
+            text-align: center;
+            background-color: #00223d;
+            color: #002b3f;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(90deg, #003057, #004956, #100058, #002660, #003168, #005771, #00317a, #000871, #001c68, #004560, #002658, #004c56, #000957);
+            background-size: 2000% 100%; /* Slightly larger size for smooth transition */
+            animation: rainbowAnimation 10s infinite linear;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Prevents scrolling if elements go out of bounds */
+            position: relative;
+            
+        }
+
+        /* Animation for background gradient */
+        @keyframes rainbowAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            8% {
+                background-position: 8% 50%;
+            }
+            16% {
+                background-position: 16% 50%;
+            }
+            24% {
+                background-position: 24% 50%;
+            }
+            32% {
+                background-position: 32% 50%;
+            }
+            40% {
+                background-position: 40% 50%;
+            }
+            48% {
+                background-position: 48% 50%;
+            }
+            56% {
+                background-position: 56% 50%;
+            }
+            64% {
+                background-position: 64% 50%;
+            }
+            72% {
+                background-position: 72% 50%;
+            }
+            80% {
+                background-position: 80% 50%;
+            }
+            88% {
+                background-position: 88% 50%;
+            }
+            96% {
+                background-position: 96% 50%;
+            }
+            100% {
+                background-position: 104% 50%; /* Extend slightly past 100% for a smooth loop */
+            }
+        }
+
+        .container {
+            margin-top: 100px;
+            animation: slideUp 2s ease-out, bounce 1.5s ease-out 2s forwards;
+        }
+
+        h1 {
+            font-size: 3rem;
+            opacity: 0;
+            animation: popIn 1.5s ease-out forwards;
+            text-shadow: 
+                0 0 5px #0077ff, 
+                0 0 10px #0400ff5b, 
+                0 0 15px #0400ff5b, 
+                0 0 20px #006eff, 
+                0 0 30px #006eff, 
+                0 0 40px #006eff, 
+                0 0 50px #006eff; /* Neon light effect */
+        }
+
+        .btn-container {
+            margin-top: 20px;
+            opacity: 1;
+            animation: popInButtons 3s ease-out, bounce 1s ease-out 3s forwards;
+            
+        }
+        
+
+        .btn {
+            background-color: #33277a;
+            color: rgb(13, 3, 73);
+            padding: 10px 20px;
+            font-family: monospace;
+            font-size: 4.5rem;
+            border: #000871;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 30px;
+            display: inline-block;
+            justify-content: center;
+    align-items: center;
+    overflow: hidden;
+            
+            text-shadow: 
+                0 0 5px #b0b0b049,   
+                0 0 10px #b0b0b04f,  
+                0 0 15px #b0b0b056,  
+                0 0 20px #99999956,  
+                0 0 30px #99999954,  
+                0 0 40px #9999994d,  
+                0 0 50px #9999995e;  
+            box-shadow: 
+                0 0 5px #000000,    
+                0 0 10px #000000,   
+                0 0 15px #000000,   
+                0 0 20px #333333,   
+                0 0 30px #333333,   
+                0 0 40px #33333313,  
+                0 0 50px #33333352;  
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for scaling and shadow */
+        }
+
+        .btn:hover {
+            transform: scale(1.2); /* Make the button grow 20% larger */
+            box-shadow: 
+                0 0 10px #000000,    
+                0 0 20px #000000,    
+                0 0 30px #000000,    
+                0 0 40px #333333,    
+                0 0 50px #333333,    
+                0 0 60px #333333;    
+        }
+        
+        /* Keyframe for the pop-in animation of text */
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: translateX(400px); /* Start from much lower */
+            }
+            100% {
+                opacity: 1;
+                transform: translate(0);
+            }
+            
+        }
+        /* Apply initial styles to the button */
+#btn2 {
+    position: relative; /* Make sure it's in the normal flow */
+    transition: transform 0.2s ease-in-out; /* Smoother transition with faster speed */
+}
+
+/* On hover, the button moves randomly */
+#btn2:hover {
+    transform: translate(
+        calc( -50% + (random() * 100px) ),  /* Random X movement */
+        calc( -50% + (random() * 100px) )   /* Random Y movement */
+    );
+}
+
+/* You can change random() with actual javascript to make it functional */
+
+
+        /* Keyframe for the pop-in animation of buttons */  
+        @keyframes popInButtons {
+            0% {
+                opacity: 0;
+                transform: translateX(-1500px); /* Start from much lower */
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Keyframe for the slide-up animation */
+        @keyframes slideUp {
+            0% {
+                transform: translateX(500px); /* Start from much lower */
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+    
+    
+        @keyframes sway {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(5deg);
+    }
+    50% {
+        transform: rotate(0deg);
+    }
+    75% {
+        transform: rotate(-5deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.container {
+    animation: sway 15s ease-in-out infinite;
+}
+
+        
+
+        /* Image styling */
+        .image-container {
+            margin-top: 45px; /* Space between buttons and the image */
+        }
+        .image-container img {
+            width: 25%; /* Make the image take up the full width of its container */
+            max-width: 200px; /* Limit the size */
+            height: auto; /* Maintain the aspect ratio */
+            border-radius: 10px; /* Rounded corners for the image */
+        }
+        .heart {
+    position: absolute;
+    top: 50%;
+    font-size: 30px;
+    color: black;
+    opacity: 0.8;
+    animation: moveHearts 10s linear infinite;
+}
+/* Styling hearts */
+.heart {
+    position: absolute;
+    top: 50%;
+    font-size: 30px;
+    color: rgba(80, 8, 8, 0.466); 
+    opacity: 0.8;
+    animation: moveHearts 10s linear infinite;
+    z-index: -1; /* Put hearts behind everything */
+
+    
+}
+/* Hearts at the top of the screen */
+.top {
+    top: -50px; /* Position above the screen */
+    animation-name: moveTopHearts; /* Custom animation for the top hearts */
+}
+
+/* Hearts at the bottom of the screen */
+.bottom {
+    bottom: -50px; /* Position below the screen */
+    animation-name: moveBottomHearts; /* Custom animation for the bottom hearts */
+}
+
+/* Different heart sizes and randomizing the animation duration */
+.heart:nth-child(1) {
+    font-size: 60px;
+    animation-duration: 12s;
+    top: 10%;
+}
+.heart:nth-child(2) {
+    font-size: 30px;
+    animation-duration: 14s;
+    top: 20%;
+}
+.heart:nth-child(3) {
+    font-size: 45px;
+    animation-duration: 18s;
+    top: 30%;
+}
+.heart:nth-child(4) {
+    font-size: 25px;
+    animation-duration: 16s;
+    top: 40%;
+}
+.heart:nth-child(5) {
+    font-size: 100px;
+    animation-duration: 11s;
+    top: 50%;
+}
+.heart:nth-child(6) {
+    font-size: 37px;
+    animation-duration: 13s;
+    top: 60%;
+}
+.heart:nth-child(7) {
+    font-size: 42px;
+    animation-duration: 17s;
+    top: 70%;
+}
+.heart:nth-child(8) {
+    font-size: 30px;
+    animation-duration: 19s;
+    top: 80%;
+}
+.heart:nth-child(9) {
+    font-size: 13px;
+    animation-duration: 15s;
+    top: 90%;
+}
+.heart:nth-child(10) {
+    font-size: 5px;
+    animation-duration: 20s;
+    top: 15%;
+}
+.heart:nth-child(11) {
+    font-size: 30px;
+    animation-duration: 12s;
+    left: 55%;
+}
+.heart:nth-child(12) {
+    font-size: 35px;
+    animation-duration: 14s;
+    left: 60%;
+    top: 90%;
+}
+.heart:nth-child(13) {
+    font-size: 50px;
+    animation-duration: 16s;
+    left: 65%;
+    top: 80%;
+}
+.heart:nth-child(14) {
+    font-size: 45px;
+    animation-duration: 18s;
+    left: 70%;
+    top: 70%;
+}
+.heart:nth-child(15) {
+    font-size: 25px;
+    animation-duration: 11s;
+    left: 75%;
+    top: 120%;
+}
+.heart:nth-child(16) {
+    font-size: 60px;
+    animation-duration: 12s;
+    top: 30%;
+}
+.heart:nth-child(17) {
+    font-size: 30px;
+    animation-duration: 14s;
+    top: 50%;
+}
+.heart:nth-child(18) {
+    font-size: 45px;
+    animation-duration: 18s;
+    top: 70%;
+}
+.heart:nth-child(19) {
+    font-size: 25px;
+    animation-duration: 16s;
+    top: 20%;
+}
+.heart:nth-child(20) {
+    font-size: 100px;
+    animation-duration: 11s;
+    top: 150%;
+}
+.heart:nth-child(21) {
+    font-size: 37px;
+    animation-duration: 13s;
+    top: 30%;
+}
+.heart:nth-child(22) {
+    font-size: 42px;
+    animation-duration: 17s;
+    top: 70%;
+}
+.heart:nth-child(23) {
+    font-size: 30px;
+    animation-duration: 19s;
+    top: 80%;
+}
+.heart:nth-child(24) {
+    font-size: 13px;
+    animation-duration: 15s;
+    top: 90%;
+}
+.heart:nth-child(25) {
+    font-size: 5px;
+    animation-duration: 20s;
+    top: 15%;
+}
+.heart:nth-child(26) {
+    font-size: 30px;
+    animation-duration: 12s;
+    left: 55%;
+}
+.heart:nth-child(27) {
+    font-size: 35px;
+    animation-duration: 14s;
+    left: 60%;
+    top: 400%;
+}
+.heart:nth-child(28) {
+    font-size: 50px;
+    animation-duration: 16s;
+    left: 65%;
+    top: 250%;
+}
+.heart:nth-child(29) {
+    font-size: 45px;
+    animation-duration: 18s;
+    left: 70%;
+    top: 300%;
+}
+.heart:nth-child(30) {
+    font-size: 25px;
+    animation-duration: 11s;
+    left: 75%;
+    top: 200%;
+}
+
+/* Animation that moves the hearts from left to right */
+@keyframes moveHearts {
+    0% {
+        left: -10%;
+    }
+    100% {
+        left: 110%;
+    }
+}
+@keyframes moveTopHearts {
+    0% {
+        left: -50px;
+    }
+    100% {
+        left: 110%;
+    }
+}
+
+@keyframes moveBottomHearts {
+    0% {
+        left: -50px;
+    }
+    100% {
+        left: 110%;
+    }
+}
+
+        
+
+       
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>would you like to be my VALENTINES!?</h1>
+        <div class="btn-container">
+             <button class="btn" id="btn1">HELL YEAH!</button>
+             <button class="btn" id="btn2">WTF NO!?</button>
+            <div class="heart">🎔</div>
+            <div class="heart">🎔</div>
+            <div class="heart">🎔</div>
+            <div class="heart">🎔</div>
+            <div class="heart">🎔</div>
+            <div class="heart">🎔</div>
+            <div class="heart">🎔</div>
+            <div class="heart">🎔</div>
+            <div class="heart">🎔</div>
+            <div class="heart">🎔</div>
+            <div class="heart">🎔</div>
+            <div class="heart">🎔</div>
+            <div class="heart">🎔</div>
+            <div class="heart">🎔</div>
+            <div class="heart">🎔</div>
+            <div class="heart">🎔</div>
+            <div class="heart">🎔</div>
+            <div class="heart">🎔</div>
+            <div class="heart">🎔</div>
+            <div class="heart">🎔</div>
+            <div class="heart">🎔</div>
+            <div class="heart">🎔</div>
+            <div class="heart">🎔</div>
+            <div class="heart">🎔</div>
+            <div class="heart">🎔</div>
+            <div class="heart">🎔</div>
+            <div class="heart">🎔</div>
+            <div class="heart">🎔</div>
+            <div class="heart">🎔</div>
+            <div class="heart">🎔</div>
+            <div class="heart">🎔</div>
+            <div class="heart">🎔</div>
+            <div class="heart top">🎔</div>
+            <div class="heart top">🎔</div>
+            <div class="heart top">🎔</div>
+            <div class="heart top">🎔</div>
+            <div class="heart top">🎔</div>
+            <div class="heart top">🎔</div>
+            <div class="heart bottom">🎔</div>
+            <div class="heart bottom">🎔</div>
+            <div class="heart bottom">🎔</div>
+            <div class="heart bottom">🎔</div>
+            <div class="heart bottom">🎔</div>
+            <div class="heart bottom">🎔</div>
+            
+
+        </div>
+    </div>
+    <div class="image-container">
+        <img src="istockphoto-1447349632-612x612.jpg" alt="emoji la"> 
+    </div>
+
+    
+  <!-- Button to play audio manually -->
+  <button id="playButton">Play Audio</button>
+
+  <!-- YouTube iframe player -->
+  <div id="player"></div>
+
+  <!-- Load YouTube API -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+
+  <script>
+    var player;
+    var fadeInterval;
+    var fadeDuration = 2000; // Duration of the fade in/out (in milliseconds)
+    var currentVolume = 1; // Starting volume (50%)
+    var fadeInProgress = false; // Flag to check if fade is already in progress
+
+    
+    // Create the YouTube player once the API is ready
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        height: '0',  // Hidden (we're only playing audio)
+        width: '0',   // Hidden
+        videoId: 'nqJlNCs4qbI', // Video ID for the specific YouTube video
+        playerVars: {
+          autoplay: 1, // Autoplay the video
+          controls: 0, // No controls
+          rel: 0, // Disable related videos
+          showinfo: 0, // Hide video info
+          loop: 1,  // Loop the video indefinitely
+          playlist: 'nqJlNCs4qbI' // Required for looping the same video
+        },
+        events: {
+          onReady: onPlayerReady
+        }
+      });
+    }
+     // Smoothly fade the volume
+     function fadeVolume(targetVolume, duration) {
+      let startVolume = currentVolume;
+      let volumeDifference = targetVolume - startVolume;
+      let step = volumeDifference / (duration / 50);  // Calculate how much to change every 50ms
+
+      clearInterval(fadeInterval); // Clear any ongoing fade effect
+
+      fadeInterval = setInterval(function() {
+        currentVolume += step;
+        player.setVolume(currentVolume);
+
+        // Stop the interval when target volume is reached
+        if ((step > 0 && currentVolume >= targetVolume) || (step < 0 && currentVolume <= targetVolume)) {
+          clearInterval(fadeInterval);
+        }
+      }, 50);
+    }
+
+
+    // Adjust volume and make sure video is ready
+    function onPlayerReady(event) {
+      event.target.setVolume(1);  // Set volume to 50%
+    }
+    // On video state change (e.g., when the video is looping)
+    function onPlayerStateChange(event) {
+      if (event.data === YT.PlayerState.ENDED) {
+        fadeVolume(0, fadeDuration); // Fade out when the video ends
+        setTimeout(function() {
+          player.seekTo(0);  // Restart the video from the beginning
+          player.playVideo(); // Play the video again
+          fadeVolume(50, fadeDuration); // Fade in after restart
+        }, fadeDuration);
+      }
+    }
+
+    // Make sure button is visible and works
+    document.getElementById('playButton').addEventListener('click', function() {
+      player.playVideo();  // Manually trigger play on button click
+    });
+
+    document.getElementById('playButton').addEventListener('click', function() {
+  player.playVideo();  // Manually trigger play on button click
+  document.getElementById('playButton').style.display = 'none';  // Hide the button after play
+});
+
+// JavaScript to move the button randomly on hover
+document.getElementById('btn2').addEventListener('mouseenter', function() {
+    let randomX = Math.random() * 700 - 200; // Random X position between -50px to +50px
+    let randomY = Math.random() * 700 - 200; // Random Y position between -50px to +50px
+
+    this.style.transform = `translate(${randomX}px, ${randomY}px)`; // Apply the random position
+});
+
+ // Function to handle button clicks
+ function handleButtonClick(event) {
+        const button = event.target;
+        const h1 = document.querySelector('h1');
+        const imageContainer = document.querySelector('.image-container');
+        const btnContainer = document.querySelector('.btn-container');
+
+        if (button.id === 'btn1') {
+            // Change text
+            h1.textContent = "LETS FUCKING GOOOO!!!";
+            document.getElementById('playButton').style.display = 'none';
+            
+            
+            
+            // Remove image and buttons
+            imageContainer.remove();
+            btnContainer.remove();
+           
+            
+            
+            // Add celebratory effects
+            h1.style.animation = "pulse 1s infinite";
+            h1.style.opacity = "1";  // This keeps it visible
+
+             // Make font massive
+        h1.style.fontSize = "10rem";  // Adjust this value as needed
+            
+            
+
+            // Trigger confetti
+            confetti({
+                particleCount: 1000,
+                spread: 500,
+                origin: { y: 0.8 }
+                
+            });
+
+            // Trigger confetti
+            confetti({
+                particleCount: 1000,
+                spread: 500,
+                origin: { y: 0.2 }
+                
+            });
+            
+            // Trigger confetti
+            confetti({
+                particleCount: 1000,
+                spread: 500,
+                origin: { y: 0.6 }
+                
+            });
+
+            // Trigger confetti
+            confetti({
+                particleCount: 1000,
+                spread: 500,
+                origin: { x: 0.8 }
+                
+            });
+
+            // Trigger confetti
+            confetti({
+                particleCount: 1000,
+                spread: 500,
+                origin: { x: 0.2 }
+                
+            });
+            
+            // Trigger confetti
+            confetti({
+                particleCount: 1000,
+                spread: 500,
+                origin: { x: 0.6 }
+                
+            });
+             // Create a big pulsing heart element
+    var bigHeart = document.createElement('div');
+    bigHeart.className = 'big-heart';
+    bigHeart.innerHTML = '❤';  // Use a heart symbol
+    document.body.appendChild(bigHeart);
+
+    // Create lol5.gif image at the end
+    var image = document.createElement("img");
+    image.src = "lol5.gif";  // Replace with the actual path to your GIF
+    image.alt = "lol5";
+    image.classList.add("lol5-gif");
+     // Make the image bigger (adjust size as needed)
+     image.style.width = "300px";  // Adjust the size you want
+    image.style.height = "auto";  // Keep the aspect ratio intact
+    
+    // Add it to the body
+    document.body.appendChild(image);
+
+    // Create lol5.gif image at the end
+    var image = document.createElement("img");
+    image.src = "lol4.gif";  // Replace with the actual path to your GIF
+    image.alt = "lol4";
+    image.classList.add("lol4-gif");
+     // Make the image bigger (adjust size as needed)
+     image.style.width = "300px";  // Adjust the size you want
+    image.style.height = "auto";  // Keep the aspect ratio intact
+    
+    // Add it to the body
+    document.body.appendChild(image);
+
+
+    // Create body text in the bottom-right corner
+    var text = document.createElement("p");
+    text.innerHTML = "YAY UR MY VALENTINES!! sorry this took so long man like. ugh, i know not all of the code is my own but i put alot of effort into this. compiling and debugging, and MAN WERE THERE ISSUES. SO MANY. but yea. i still dont feel like this is enough but i hope its even alittle good. i love you!!, i wanted to do more for you but i just kept adding and adding to this.. i love you alot tho! its not enough like ur gifts were :C <3";  // Replace with whatever message you want
+    text.style.position = "absolute";
+    text.fontc
+    text.style.bottom = "20px";  // Distance from the bottom
+    text.style.right = "20px";  // Distance from the right
+    text.style.fontSize = "25px";  // Adjust font size as needed
+    text.style.color = "black";  // White text color
+    text.style.fontFamily = "monospace";  // Optional, choose any font
+
+    // Add it to the body
+    document.body.appendChild(text);
+        }
+    }
+
+    // Add event listeners
+    document.getElementById('btn1').addEventListener('click', handleButtonClick);
+    
+</script>
+
+<!-- Add confetti library -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+<!-- Add pulse animation to CSS -->
+<style>
+    @keyframes pulse {
+        0% { transform: scale(1.1); }
+        50% { transform: scale(1.25); }
+        100% { transform: scale(1.1); }
+    }
+    h1 {
+        transition: all 1s ease;
+    }
+
+    .big-heart {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 50rem;  /* Adjust size as needed */
+  color: rgba(44, 44, 184, 0.5);  /* Dark blue, semi-transparent */
+  z-index: -2;  /* Ensure it's behind your other content */
+  animation: pulseHeart 2s infinite ease-in-out;
+}
+
+@keyframes pulseHeart {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+  }
+}
+</style>
+
+
+
+
+
+
+
+
+
+  </script>
+  
